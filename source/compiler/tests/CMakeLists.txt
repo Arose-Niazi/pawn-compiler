@@ -1,8 +1,8 @@
-find_package(PythonInterp 2.7)
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
 
-if(PYTHONINTERP_FOUND)
+if(Python3_FOUND)
   add_custom_target(pawncc_tests
-    COMMAND ${PYTHON_EXECUTABLE}
+    COMMAND ${Python3_EXECUTABLE}
       ${CMAKE_CURRENT_SOURCE_DIR}/run_tests.py
       -c $<TARGET_FILE:pawncc>
       -d $<TARGET_FILE:pawndisasm>
@@ -15,7 +15,7 @@ if(PYTHONINTERP_FOUND)
   foreach(meta_file IN LISTS meta_files)
     get_filename_component(test_name ${meta_file} NAME_WE)
     add_test(NAME ${test_name}
-      COMMAND ${PYTHON_EXECUTABLE}
+      COMMAND ${Python3_EXECUTABLE}
         ${CMAKE_CURRENT_SOURCE_DIR}/run_tests.py
         -c $<TARGET_FILE:pawncc>
         -d $<TARGET_FILE:pawndisasm>
@@ -25,5 +25,5 @@ if(PYTHONINTERP_FOUND)
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
   endforeach()
 else()
-  message("Python was not found, you will not be able to run the tests")
+  message("Python3 was not found, you will not be able to run the tests")
 endif()

@@ -1,5 +1,8 @@
+cmake_minimum_required(VERSION 3.5)
+cmake_policy(SET CMP0115 NEW)
 project(pawnamx C)
-cmake_minimum_required(VERSION 2.8)
+
+add_compile_definitions(__arm64__)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 

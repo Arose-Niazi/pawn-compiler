@@ -1,5 +1,9 @@
+cmake_minimum_required(VERSION 3.5)
+cmake_policy(SET CMP0115 NEW)
 project(pawnc C)
-cmake_minimum_required(VERSION 2.8)
+
+add_compile_definitions(__arm64__)
+
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -62,6 +66,7 @@ endif()
 
 if(APPLE)
   set(CMAKE_MACOSX_RPATH ON)
+  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.h.in

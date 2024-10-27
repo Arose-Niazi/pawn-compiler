@@ -201,13 +201,19 @@ extern  "C" {
 #define MAX_FILE_VER_JIT  8     /* file version supported by the JIT */
 #define MIN_AMX_VER_JIT   8     /* AMX version supported by the JIT */
 
-#if !defined PAWN_CELL_SIZE
-  #if defined __64BIT__
-    #define PAWN_CELL_SIZE 64     /* by default, use 32-bit cells */
+#ifndef PAWN_CELL_SIZE
+  #if defined(__APPLE__) && defined(__arm64__)
+    #define PAWN_CELL_SIZE 64
+  #elif defined(__64BIT__)
+    #define PAWN_CELL_SIZE 64
   #else
-    #define PAWN_CELL_SIZE 32     /* by default, use 32-bit cells */
+    #define PAWN_CELL_SIZE 32
   #endif
 #endif
+#if PAWN_CELL_SIZE == 64
+  #define HAVE_I64
+#endif
+
 #if PAWN_CELL_SIZE==16
   typedef uint16_t  ucell;
   typedef int16_t   cell;
