@@ -1667,7 +1667,7 @@ static void setconstants(void)
   add_builtin_constant("charbits",sCHARBITS,sGLOBAL,0);
   add_builtin_constant("charmin",0,sGLOBAL,0);
   add_builtin_constant("charmax",~((ucell)-1 << sCHARBITS) - 1,sGLOBAL,0);
-  add_builtin_constant("ucharmax",(1 << (sizeof(cell)-1)*8)-1,sGLOBAL,0);
+  add_builtin_constant("ucharmax",((uint64_t)1 << (sizeof(cell)-1)*8)-1,sGLOBAL,0);
 
   add_builtin_constant("__Pawn",VERSION_INT,sGLOBAL,0);
   add_builtin_constant("__PawnBuild",VERSION_BUILD,sGLOBAL,0);

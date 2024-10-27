@@ -40,8 +40,13 @@ size_t AMXAPI aux_ProgramSize(char *filename)
   if (size < 1)
     return 0;
 
-  amx_Align16(&hdr.magic);
-  amx_Align32((uint32_t *)&hdr.stp);
+  uint16_t magic = hdr.magic;
+  amx_Align16(&magic);
+  hdr.magic = magic;
+
+  uint32_t stp = hdr.stp;
+  amx_Align32(&stp);
+  hdr.stp = stp;
   return (hdr.magic==AMX_MAGIC) ? (size_t)hdr.stp : 0;
 }
 
@@ -60,9 +65,19 @@ int AMXAPI aux_LoadProgram(AMX *amx, char *filename, void *memblock)
     fclose(fp);
     return AMX_ERR_FORMAT;
   } /* if */
-  amx_Align16(&hdr.magic);
-  amx_Align32((uint32_t *)&hdr.size);
-  amx_Align32((uint32_t *)&hdr.stp);
+  uint16_t magic = hdr.magic;
+  amx_Align16(&magic);
+  hdr.magic = magic;
+
+  uint32_t aligned_size = hdr.size; // Renamed to avoid conflict
+  amx_Align32(&aligned_size);       // Use new name
+  hdr.size = aligned_size;          // Assign back after alignment
+
+
+  uint32_t stp = hdr.stp;
+  amx_Align32(&stp);
+  hdr.stp = stp;
+
   if (hdr.magic != AMX_MAGIC) {
     fclose(fp);
     return AMX_ERR_FORMAT;

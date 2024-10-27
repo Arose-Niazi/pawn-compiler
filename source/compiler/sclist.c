@@ -485,7 +485,7 @@ SC_FUNC stringlist *insert_dbgsymbol(symbol *sym)
       strcat(string," [ ");
       for (sub=sym; sub!=NULL; sub=sub->child) {
         assert(sub->dim.array.level==count--);
-        sprintf(string+strlen(string),"%x:%x ",sub->x.tags.index,sub->dim.array.length);
+        sprintf(string + strlen(string), "%x:%llx ", sub->x.tags.index, sub->dim.array.length);
       } /* for */
       strcat(string,"]");
     } /* if */

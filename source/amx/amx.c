@@ -929,7 +929,9 @@ int AMXAPI amx_Init(AMX *amx,void *program)
     /* when there is a separate name table, check the maximum name length
      * in that table
      */
-    amx_Align32((uint32_t*)&hdr->nametable);
+    uint32_t nametable = hdr->nametable;  // Copy to a temporary variable
+    amx_Align32(&nametable);              // Align the temporary variable
+    hdr->nametable = nametable; 
     namelength=(uint16_t*)((unsigned char*)program + (unsigned)hdr->nametable);
     amx_Align16(namelength);
     if (*namelength>sNAMEMAX)
